@@ -24,12 +24,26 @@ class FinancialStatementParser:
 
         return balance_sheet
 
+    def get_income_statement(self):
+        statement = self.income_statement.find(ct.PNL_TAG, ct.xml_namespaces)
+        data = []
+        for key, value in ct.income_statement_mapping.items():
+            line = statement.findall(key, ct.xml_namespaces)
+            record = (
+                key,
+                value,
+                line.find(ct.AMOUNT_CY, ct.xml_namespaces).text,
+                line.find(ct.AMOUNT_PY, ct.xml_namespaces).text,
+            )
+            data.append(record)
+        return data
+
     @staticmethod
     def loop_balance_sheet_tree(parent_root):
         data = []
         for key, sub_dict in ct.balance_sheet_mapping.items():
             sub_dict: dict
-            sublines = parent_root.find(key , ct.xml_namespaces)
+            sublines = parent_root.find(key, ct.xml_namespaces)
             for sub_key, sub_value in sub_dict.items():
                 for line in sublines.findall(sub_key, ct.xml_namespaces):
                     record = (
