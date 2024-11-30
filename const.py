@@ -8,6 +8,7 @@ BALANCE_TAG = 'tns:Bilans'
 INCOME_TAG = 'tns:RZiS'
 ASSETS_TAG = 'jin:Aktywa'
 LIABILITIES_TAG = 'jin:Pasywa'
+PNL_TAG = "jin:RZiSKalk"
 AMOUNT_CY = 'dtsf:KwotaA'
 AMOUNT_PY = 'dtsf:KwotaB'
 
@@ -37,4 +38,24 @@ balance_sheet_mapping = {
         "jin:Pasywa_B_III": "Zobowiązania krótkoterminowe",
         "jin:Pasywa_B_IV": "Rozliczenia międzyokresowe",
     },
+}
+
+income_statement_mapping = {
+    "jin:A": "Przychód",
+    "jin:B": "Koszty sprzedanych produktów",
+    "jin:C": "Zysk brutto ze sprzedaży",
+    "jin:D": "Koszty sprzedaży",
+    "jin:E": "Koszty ogólnego zarządu",
+    "jin:F": "Zysk ze sprzedaży",
+    "jin:G": "Pozostałe przychody operacyjne",
+    "jin:H": "Pozostałe koszty operacyjne",
+    "jin:I": "Zysk z działalnosci operacyjnej",
+    "jin:J": "Przychody finansowe",
+    "jin:K": "Koszty finansowe",
+    "jin:L": "Zysk z dzialanosci gospodarczej",
+    "jin:M": "Wynik zdarzen nadzwyczajnych",
+    "jin:N": "Zysk brutto",
+    "jin:O": "Podatek dochodowy",
+    "jin:P": "Pozostale obowiazkowe zmniejszenia zysku",
+    "jin:R": "Zysk netto",
 }
