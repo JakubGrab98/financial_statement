@@ -28,14 +28,15 @@ class FinancialStatementParser:
         statement = self.income_statement.find(ct.PNL_TAG, ct.xml_namespaces)
         data = []
         for key, value in ct.income_statement_mapping.items():
-            line = statement.findall(key, ct.xml_namespaces)
-            record = (
-                key,
-                value,
-                line.find(ct.AMOUNT_CY, ct.xml_namespaces).text,
-                line.find(ct.AMOUNT_PY, ct.xml_namespaces).text,
-            )
-            data.append(record)
+            lines = statement.findall(key, ct.xml_namespaces)
+            for line in lines:
+                record = (
+                    key,
+                    value,
+                    line.find(ct.AMOUNT_CY, ct.xml_namespaces).text,
+                    line.find(ct.AMOUNT_PY, ct.xml_namespaces).text,
+                )
+                data.append(record)
         return data
 
     @staticmethod
