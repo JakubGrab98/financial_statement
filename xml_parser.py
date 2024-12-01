@@ -57,7 +57,12 @@ class FinancialStatementParser:
             print("Cannot find income statement attribute")
 
     @staticmethod
-    def loop_balance_sheet_tree(parent_root):
+    def loop_balance_sheet_tree(parent_root: ET.Element) -> list[tuple]:
+        """
+        Static method for retrieving data from balance sheet with provided mapping in const module.
+        :param parent_root: The balance sheet root element.
+        :return: List of tuples with balance sheet data.
+        """
         data = []
         for key, sub_dict in ct.balance_sheet_mapping.items():
             sub_dict: dict
