@@ -17,7 +17,9 @@ class FinancialStatementParser:
         return root
 
     def get_balance_sheet(self) -> list[tuple] | None:
-        """Retrieves balance sheet data from xml file"""
+        """Retrieves balance sheet data from xml file
+        :return: List of tuples with balance sheet data.
+        """
         try:
             balance_sheet_root = self.root.find(ct.BALANCE_TAG, ct.xml_namespaces)
             assets = balance_sheet_root.find(ct.ASSETS_TAG, ct.xml_namespaces)
@@ -31,20 +33,28 @@ class FinancialStatementParser:
         except AttributeError as e:
             print("Cannot find balance sheet attribute")
 
-    def get_income_statement(self):
-        statement = self.income_statement.find(ct.PNL_TAG, ct.xml_namespaces)
-        data = []
-        for key, value in ct.income_statement_mapping.items():
-            lines = statement.findall(key, ct.xml_namespaces)
-            for line in lines:
-                record = (
-                    key,
-                    value,
-                    line.find(ct.AMOUNT_CY, ct.xml_namespaces).text,
-                    line.find(ct.AMOUNT_PY, ct.xml_namespaces).text,
-                )
-                data.append(record)
-        return data
+    def get_income_statement(self) -> list[tuple] | None:
+        """
+        Retrieves income statement data from XML file.
+        :return: List of tuples with income statement data.
+        """
+        try:
+            income_statement_root = self.root.find(ct.INCOME_TAG, ct.xml_namespaces)
+            income_statement = income_statement_root.find(ct.PNL_TAG, ct.xml_namespaces)
+            data = []
+            for key, value in ct.income_statement_mapping.items():
+                lines = income_statement.findall(key, ct.xml_namespaces)
+                for line in lines:
+                    record = (
+                        key,
+                        value,
+                        line.find(ct.AMOUNT_CY, ct.xml_namespaces).text,
+                        line.find(ct.AMOUNT_PY, ct.xml_namespaces).text,
+                    )
+                    data.append(record)
+            return data
+        except AttributeError as e:
+            print("Cannot find income statement attribute")
 
     @staticmethod
     def loop_balance_sheet_tree(parent_root):
