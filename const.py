@@ -11,7 +11,7 @@ LIABILITIES_TAG = 'jin:Pasywa'
 PNL_TAG = "jin:RZiSKalk"
 AMOUNT_CY = 'dtsf:KwotaA'
 AMOUNT_PY = 'dtsf:KwotaB'
-
+INTRODUCTION_SECTION_TAG = "tns:WprowadzenieDoSprawozdaniaFinansowego"
 
 balance_sheet_mapping = {
     "jin:Aktywa_A": {        
@@ -56,4 +56,9 @@ income_statement_mapping = {
     "jin:M": "Podatek dochodowy",
     "jin:N": "Pozostałe obowiązkowe zmniejszenia zysku (zwiększenia straty)",
     "jin:O": "Zysk (strata) netto",
+}
+
+general_information_mapping = {
+    "tns:P_1": ["tns:P_1D", "tns:P_1E"],
+    "tns:P_3": ["dtsf:DataOd", "dtsf:DataDo"],
 }
