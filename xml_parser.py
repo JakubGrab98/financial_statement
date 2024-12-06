@@ -12,6 +12,10 @@ class FinancialStatementParser:
         self.income_statement = self.root.find(ct.INCOME_TAG, ct.xml_namespaces)
 
     def get_xml_root(self) -> ET.Element:
+        """
+        Parses xml file provided in init method.
+        :return: Root element.
+        """
         tree = ET.parse(self.xml_file)
         root = tree.getroot()
         return root
