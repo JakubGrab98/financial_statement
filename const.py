@@ -13,7 +13,7 @@ AMOUNT_CY = 'dtsf:KwotaA'
 AMOUNT_PY = 'dtsf:KwotaB'
 INTRODUCTION_SECTION_TAG = "tns:WprowadzenieDoSprawozdaniaFinansowego"
 
-balance_sheet_mapping = {
+assets_mapping = {
     "jin:Aktywa_A": {        
         "jin:Aktywa_A_I": "Wartości niematerialne i prawne",
         "jin:Aktywa_A_II": "Rzeczowe aktywa trwałe ",
@@ -27,7 +27,10 @@ balance_sheet_mapping = {
         "jin:Aktywa_B_III": "Inwestycje krótkoterminowe",
         "jin:Aktywa_B_IV": "Krótkoterminowe rozliczenia międzyokresowe",
     },
-    "jin:Pasywa_A": {        
+}
+
+liabilities_mapping = {
+    "jin:Pasywa_A": {
         "jin:Pasywa_A_I": "Kapitał podstawowy",
         "jin:Pasywa_A_II": "Kapitał zapasowy",
         "jin:Pasywa_A_III": "Zysk netto",
