@@ -1,7 +1,5 @@
 """Module responsible for retrieving financial data from XML files"""
 import xml.etree.ElementTree as ET
-from time import ctime
-
 import const as ct
 
 
@@ -18,7 +16,11 @@ class FinancialStatementParser:
         root = tree.getroot()
         return root
 
-    def get_company_detail(self):
+    def get_general_info(self) -> list:
+        """
+        Retrieves general information about the company and statement.
+        :return: List contains NIP, KRS and statement start and end period.
+        """
         data = []
         introduction_section = self.root.find(ct.INTRODUCTION_SECTION_TAG, ct.xml_namespaces)
         for key, values in ct.general_information_mapping.items():
@@ -26,7 +28,7 @@ class FinancialStatementParser:
             for element in first_section:
                 for value in values:
                     data.append(element.find(value, ct.xml_namespaces).text)
-        print(data)
+        return data
 
     def get_balance_sheet(self) -> list[tuple] | None:
         """Retrieves balance sheet data from xml file
