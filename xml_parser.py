@@ -16,7 +16,7 @@ class FinancialStatementParser:
         root = tree.getroot()
         return root
 
-    def get_general_info(self) -> list:
+    def get_general_info(self) -> list[str]:
         """
         Retrieves general information about the company and statement.
         :return: List contains NIP, KRS and statement start and end period.
@@ -39,13 +39,13 @@ class FinancialStatementParser:
             assets = balance_sheet_root.find(ct.ASSETS_TAG, ct.xml_namespaces)
             liabilities = balance_sheet_root.find(ct.LIABILITIES_TAG, ct.xml_namespaces)
 
-            assets_data = self.loop_balance_sheet_tree(assets)
-            liabilities_data = self.loop_balance_sheet_tree(liabilities)
+            assets_data = self.loop_balance_sheet_tree(assets, ct.assets_mapping)
+            liabilities_data = self.loop_balance_sheet_tree(liabilities, ct.liabilities_mapping)
             balance_sheet = assets_data + liabilities_data
 
             return balance_sheet
         except AttributeError as e:
-            print("Cannot find balance sheet attribute")
+            print(f"Cannot find balance sheet attribute: {e}")
 
     def get_income_statement(self) -> list[tuple] | None:
         """
@@ -71,14 +71,14 @@ class FinancialStatementParser:
             print("Cannot find income statement attribute")
 
     @staticmethod
-    def loop_balance_sheet_tree(parent_root: ET.Element) -> list[tuple]:
+    def loop_balance_sheet_tree(parent_root: ET.Element, mapping: dict) -> list[tuple]:
         """
         Static method for retrieving data from balance sheet with provided mapping in const module.
         :param parent_root: The balance sheet root element.
         :return: List of tuples with balance sheet data.
         """
         data = []
-        for key, sub_dict in ct.balance_sheet_mapping.items():
+        for key, sub_dict in mapping.items():
             sub_dict: dict
             sublines = parent_root.find(key, ct.xml_namespaces)
             for sub_key, sub_value in sub_dict.items():
